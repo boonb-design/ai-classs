@@ -7,7 +7,7 @@ const replicate = new Replicate({
 
 export async function POST(req) {
  
-  const { mainingredient,dishtype,theme } = await req.json();
+  const { mainingredient,dishtype,theme,garnish } = await req.json();
 
   const output = await replicate.run(
     "stability-ai/sdxl:39ed52f2a78e934b3ba6e2a89f5b1c712de7dfea535525255b1aa35c5565e08b",
@@ -15,7 +15,7 @@ export async function POST(req) {
       input: {
         width: 768,
         height: 768,
-        prompt: `isometric view chesese ${dishtype} in night fine dining using ${mainingredient}, in a concept of ${theme}, ontop woth a ${garnish}. serving in luxury black plate`,
+        prompt: `isometric view chesese ${dishtype} in night fine dining using ${mainingredient}, in a concept of ${theme}, ontop woth a ${garnish}. serving on luxury black plate in the most expensive restaurant on earth  `,
         refine: "expert_ensemble_refiner",
         scheduler: "K_EULER",
         lora_scale: 0.6,
@@ -34,8 +34,8 @@ export async function POST(req) {
 
   return Response.json({ 
     status: "ok",
-    answer: "done!!!"
-    output
+    answer: "done!!!",
+    output: output[0] 
 });
 
 
